@@ -70,10 +70,6 @@ func TestUnmarshalFeature(t *testing.T) {
 		t.Errorf("should have type of Feature, got %v", f.Type)
 	}
 
-	if len(f.Properties) != 1 {
-		t.Errorf("should have 1 property but got %d", len(f.Properties))
-	}
-
 	if len(f.BoundingBox) != 4 {
 		t.Errorf("should have unmarshalled bounding box")
 	}

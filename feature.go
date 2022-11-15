@@ -10,7 +10,7 @@ type Feature struct {
 	Type        string                 `json:"type"`
 	BoundingBox []float64              `json:"bbox,omitempty"`
 	Geometry    *Geometry              `json:"geometry"`
-	Properties  map[string]interface{} `json:"properties"`
+	Properties  Properties `json:"properties"`
 	CRS         map[string]interface{} `json:"crs,omitempty"` // Coordinate Reference System Objects are not currently supported
 }
 
@@ -19,7 +19,6 @@ func NewFeature(geometry *Geometry) *Feature {
 	return &Feature{
 		Type:       "Feature",
 		Geometry:   geometry,
-		Properties: make(map[string]interface{}),
 	}
 }
 
@@ -68,14 +67,13 @@ func (f Feature) MarshalJSON() ([]byte, error) {
 		ID:       f.ID,
 		Type:     "Feature",
 		Geometry: f.Geometry,
+		Properties: f.Properties,
 	}
 
 	if f.BoundingBox != nil && len(f.BoundingBox) != 0 {
 		fea.BoundingBox = f.BoundingBox
 	}
-	if f.Properties != nil && len(f.Properties) != 0 {
-		fea.Properties = f.Properties
-	}
+
 	if f.CRS != nil && len(f.CRS) != 0 {
 		fea.CRS = f.CRS
 	}
